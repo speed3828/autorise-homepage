@@ -1,0 +1,3 @@
+import Footer from './components/Footer';
+// ... existing code ...
+// Remove 'use client' directive if present. 
