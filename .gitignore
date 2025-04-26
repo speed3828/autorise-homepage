@@ -37,3 +37,7 @@ next-env.d.ts
 
 # temp files
 /temp/
+
+# other projects
+/autorise-final/
+/autorise-new/
