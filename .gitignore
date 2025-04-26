@@ -39,5 +39,5 @@ next-env.d.ts
 /temp/
 
 # other projects
-/autorise-final/
-/autorise-new/
+# /autorise-final/
+# /autorise-new/
