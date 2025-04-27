@@ -31,7 +31,7 @@ yarn dev
 
 `.env.local` 파일을 프로젝트 루트 디렉토리에 생성하고 다음 변수를 설정합니다:
 
-```
+```env
 # EmailJS 설정
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=YOUR_EMAILJS_PUBLIC_KEY
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_autorise
@@ -110,4 +110,4 @@ yarn static-server
 
 ## 개발자 문의
 
-개발 관련 문의: speed382286@gmail.com
+개발 관련 문의: [speed382286@gmail.com](mailto:speed382286@gmail.com)
