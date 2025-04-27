@@ -1,0 +1,8 @@
+{
+  "local-history.enabled": true,
+  "local-history.saveDelay": 120,
+  "cursor.codeEditing.excludePatterns": ["public/**","dist/**","*.generated.*"],
+  "cursor.alwaysShowDiffBeforeApply": true,
+  "cursor.maxLinesPerEdit": 300,
+  "files.autoSave": "off"
+} 
