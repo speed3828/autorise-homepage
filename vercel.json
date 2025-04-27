@@ -1,4 +1,1 @@
-﻿{
-  "framework": "nextjs",
-  "outputDirectory": "out"
-}
+{"framework":"nextjs","outputDirectory":"out"}
