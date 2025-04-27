@@ -38,6 +38,12 @@ next-env.d.ts
 # temp files
 /temp/
 
+# large files and archives
+/archive/
+/temp_archive/
+*.zip
+/releases/
+
 # other projects
 # /autorise-final/
 # /autorise-new/

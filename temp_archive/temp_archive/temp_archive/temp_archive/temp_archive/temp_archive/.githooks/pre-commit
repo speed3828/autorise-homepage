@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-# 자동 스냅샷 생성 훅
-git add -A
-git commit -m "snap(auto): $(date +%m-%d_%H:%M)" --no-verify 
