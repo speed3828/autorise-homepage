@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'export',
+  // output: 'export', // Commented out for Vercel deployment
   images: {
     unoptimized: true
   },
