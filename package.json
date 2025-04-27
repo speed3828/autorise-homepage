@@ -15,7 +15,9 @@
     "doctor": "node scripts/doctor.js",
     "export": "next build && next export",
     "static": "npm run build && npx serve out -p 3100",
-    "static-server": "node scripts/static-server.js"
+    "static-server": "node scripts/static-server.js",
+    "deploy:vercel": "npx --package=vercel vercel --prod --confirm",
+    "vercel:deploy": "npx vercel --prod"
   },
   "dependencies": {
     "@emailjs/browser": "^4.1.0",
