@@ -13,7 +13,6 @@
     "postdeploy": "ssh $DEPLOY_USER@$DEPLOY_HOST 'pm2 restart myapp'",
     "start:cursor": "kill-port 3100 && next dev -p 3100",
     "doctor": "node scripts/doctor.js",
-    "export": "next build && next export",
     "static": "npm run build && npx serve out -p 3100",
     "static-server": "node scripts/static-server.js",
     "deploy:vercel": "npx --package=vercel vercel --prod --confirm",
