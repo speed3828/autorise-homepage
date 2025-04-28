@@ -1,0 +1,13 @@
+name: menu-fe CI
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # ← Run workflow 버튼을 나타나게 하는 키
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo "CI skeleton ready!"
