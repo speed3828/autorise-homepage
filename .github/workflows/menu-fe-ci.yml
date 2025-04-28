@@ -11,3 +11,42 @@ jobs:
     steps:
       - name: Test
         run: echo "CI skeleton ready!"
+# .github/workflows/menu-fe-ci.yml
+name: menu-fe CI
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # 👉 Run workflow 버튼용
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1) Node 빌드
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run build            # Next.js 빌드 결과 .next/ 생성
+
+      # 2) Docker 이미지 빌드+푸시
+      - name: Login & Push Docker
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" \
+            | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/menu-fe:${{ github.sha }} .
+          docker push    ${{ secrets.DOCKERHUB_USERNAME }}/menu-fe:${{ github.sha }}
+
+      # 3) Helm 으로 스테이징 배포
+      - name: Deploy to staging
+        env:
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
+        run: |
+          helm upgrade --install platform-menu-fe ./helm/platform-menu-fe \
+            --namespace cloudbridge-staging \
+            --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/menu-fe \
+            --set image.tag=${{ github.sha }}
