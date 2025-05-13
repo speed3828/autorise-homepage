@@ -90,7 +90,7 @@ export default function HeroSection({ className = '' }: HeroSectionProps) {
         </div>
         <div className="mt-10 flex justify-center gap-4">
           <a 
-            href="https://blog-youtube-sections-fziu0coww-auto-rise-insight.vercel.app/" 
+            href="https://blog-youtube-sections-crr197oiu-auto-rise-insight.vercel.app/" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/20"
