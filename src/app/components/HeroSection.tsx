@@ -12,6 +12,8 @@ export default function HeroSection({ className = '' }: HeroSectionProps) {
   const [typingText, setTypingText] = useState('');
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const [glitchClass1, setGlitchClass1] = useState('glitch-margin-1');
+  const [glitchClass2, setGlitchClass2] = useState('glitch-margin-2');
   
   // useMemo를 사용하여 textSequence 메모이제이션
   const textSequence = useMemo(() => [
@@ -25,6 +27,12 @@ export default function HeroSection({ className = '' }: HeroSectionProps) {
     // 글리치 효과 간헐적 실행
     const glitchInterval = setInterval(() => {
       setGlitchText(true);
+      // 글리치 효과마다 랜덤한 마진 클래스 선택
+      const randomClass1 = `glitch-margin-${Math.floor(Math.random() * 5) + 1}`;
+      const randomClass2 = `glitch-margin-${Math.floor(Math.random() * 5) + 1}`;
+      setGlitchClass1(randomClass1);
+      setGlitchClass2(randomClass2);
+      
       setTimeout(() => setGlitchText(false), 200);
     }, 5000);
     
@@ -61,25 +69,64 @@ export default function HeroSection({ className = '' }: HeroSectionProps) {
   }, [typingText, currentTextIndex, isTypingComplete, textSequence]);
   
   return (
-    <section className={`relative flex min-h-screen flex-col items-center justify-center p-24 bg-gradient-to-b from-gray-950 to-gray-900 ${className}`}>
-      <div className="absolute inset-0 z-0 opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-cyan-500 filter blur-5xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-pink-500 filter blur-5xl"></div>
+    <section className={`relative flex min-h-screen flex-col items-center justify-center p-24 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 ${className}`}>
+      {/* 사이버펑크 배경 효과 */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        
+        {/* 수직선 효과 */}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div 
+            key={`vline-${i}`} 
+            className={`absolute h-full w-px bg-gradient-to-b from-cyan-500 to-transparent opacity-10 vline-${i+1}`}
+          ></div>
+        ))}
+        
+        {/* 수평선 효과 */}
+        {Array.from({ length: 15 }).map((_, i) => (
+          <div 
+            key={`hline-${i}`} 
+            className={`absolute w-full h-px bg-gradient-to-r from-pink-500 via-transparent to-cyan-500 opacity-10 hline-${i+1}`}
+          ></div>
+        ))}
+        
+        {/* 네온 글로우 효과 */}
+        <div className="glow-effect-1"></div>
+        <div className="glow-effect-2"></div>
       </div>
       
       <div className="z-10 max-w-5xl w-full items-center justify-center text-center">
-        <h1 className={`text-6xl font-bold mb-8 ${glitchText ? 'animate-pulse' : ''}`}>
-          <span className="text-pink-500">Auto</span>
-          <span className="text-white">rise_</span>
-          <span className="text-cyan-400">Insight</span>
-        </h1>
-        <div className="text-cyan-400 text-xl font-medium h-8 min-h-8 flex justify-center items-center">
+        <div className="relative inline-block mb-8">
+          <h1 className={`text-6xl md:text-7xl font-bold relative z-10 ${glitchText ? 'animate-glitch' : ''}`}>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-pink-400 to-pink-500 neon-pink-glow">Auto</span>
+            <span className="text-white">rise_</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-cyan-500 neon-glow">Insight</span>
+          </h1>
+          
+          {/* 글리치 효과 요소 */}
+          {glitchText && (
+            <>
+              <h1 className={`text-6xl md:text-7xl font-bold absolute top-0 left-0 text-pink-500 opacity-70 z-0 ${glitchClass1}`}>
+                <span className="text-pink-500">Auto</span>
+                <span className="text-white">rise_</span>
+                <span className="text-cyan-400">Insight</span>
+              </h1>
+              <h1 className={`text-6xl md:text-7xl font-bold absolute top-0 left-0 text-cyan-400 opacity-70 z-0 ${glitchClass2}`}>
+                <span className="text-pink-500">Auto</span>
+                <span className="text-white">rise_</span>
+                <span className="text-cyan-400">Insight</span>
+              </h1>
+            </>
+          )}
+        </div>
+        
+        <div className="text-cyan-400 text-xl md:text-2xl font-medium h-8 min-h-8 flex justify-center items-center">
           <span className={`${isTypingComplete ? '' : 'border-r-2 border-cyan-500 pr-1'}`}>
             {isTypingComplete ? (
               <>
-                <span className="text-pink-400">사람과 사람</span>
+                <span className="text-pink-400 neon-pink-glow">사람과 사람</span>
                 <span className="text-gray-400"> • </span>
-                <span className="text-cyan-400">사람과 상점</span>
+                <span className="text-cyan-400 neon-glow">사람과 상점</span>
                 <span className="text-gray-400"> • </span>
                 <span className="text-purple-400">사람과 행정</span>
                 <span className="text-gray-400"> • </span>
@@ -88,14 +135,32 @@ export default function HeroSection({ className = '' }: HeroSectionProps) {
             ) : typingText}
           </span>
         </div>
-        <div className="mt-10 flex justify-center gap-4">
+        
+        <div className="mt-12 flex flex-col md:flex-row justify-center items-center gap-4">
           <a 
-            href="https://blog-youtube-sections-crr197oiu-auto-rise-insight.vercel.app/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/20"
+            href="#blog"
+            className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-cyan-500/20 group relative overflow-hidden mb-4 md:mb-0"
+            onClick={(e) => {
+              e.preventDefault();
+              const blogSection = document.getElementById('blog');
+              const youtubeSection = document.getElementById('youtube');
+              if (blogSection) {
+                blogSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
           >
-            블로그 & 유튜브 살펴보기
+            <span className="relative z-10">블로그 & 유튜브 살펴보기</span>
+            <span className="absolute inset-0 w-0 bg-gradient-to-r from-cyan-300 to-blue-400 transition-all duration-300 opacity-30 group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-300 cyan-border-glow"></span>
+          </a>
+          
+          <a 
+            href="#contact"
+            className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-pink-500/20 group relative overflow-hidden"
+          >
+            <span className="relative z-10">문의하기</span>
+            <span className="absolute inset-0 w-0 bg-gradient-to-r from-pink-300 to-purple-400 transition-all duration-300 opacity-30 group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-pink-300 pink-border-glow"></span>
           </a>
         </div>
       </div>

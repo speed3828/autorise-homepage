@@ -3,13 +3,16 @@ import ContactForm from './ContactForm';
 
 export default function ContactSection() {
   return (
-    <section className="relative py-20 bg-gray-900">
-      <div className="absolute inset-0 z-0 opacity-20">
-        <div className="absolute bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-pink-500 to-transparent opacity-10"></div>
-      </div>
-      
-      <div className="container mx-auto px-4 max-w-3xl relative z-10">
-        <ContactForm />
+    <section className="py-20 bg-gray-900" id="contact">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+          <span className="text-gray-200">문의</span>
+          <span className="text-cyan-400">하기</span>
+        </h2>
+        
+        <div className="max-w-4xl mx-auto">
+          <ContactForm />
+        </div>
       </div>
     </section>
   );

@@ -49,8 +49,8 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 17, 24, 39;
-  --background-end-rgb: 31, 41, 55;
+  --background-start-rgb: 10, 10, 15;
+  --background-end-rgb: 0, 0, 0;
   
   --primary-rgb: 236, 72, 153;
   --secondary-rgb: 34, 211, 238;
@@ -95,4 +95,405 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(var(--primary-rgb), 0.8);
+}
+
+/* 사이버펑크 스타일 */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.neon-glow {
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.neon-pink-glow {
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.7), 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.cyan-border-glow {
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.pink-border-glow {
+  box-shadow: 0 0 5px rgba(236, 72, 153, 0.7), 0 0 10px rgba(236, 72, 153, 0.5);
+}
+
+.cyberpunk-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.7), transparent);
+}
+
+/* 애니메이션 */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.05;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 0.1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes blog-loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blog-loader-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s linear infinite;
+  animation-play-state: paused;
+}
+
+.animate-glitch:hover {
+  animation-play-state: running;
+}
+
+.blog-loader-outer {
+  animation: blog-loader-pulse 2s ease-in-out infinite;
+}
+
+.blog-loader-inner-1 {
+  animation: blog-loader-spin 3s linear infinite;
+}
+
+.blog-loader-inner-2 {
+  animation: blog-loader-spin 2s linear infinite reverse;
+}
+
+/* 접근성 클래스 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* 반응형 요소 */
+@media (max-width: 768px) {
+  .neon-glow, .neon-pink-glow {
+    text-shadow: 0 0 3px rgba(0, 255, 255, 0.5);
+  }
+}
+
+/* HeroSection Styles */
+/* 수직선 위치 클래스 */
+.vline-1 { left: 5%; }
+.vline-2 { left: 10%; }
+.vline-3 { left: 15%; }
+.vline-4 { left: 20%; }
+.vline-5 { left: 25%; }
+.vline-6 { left: 30%; }
+.vline-7 { left: 35%; }
+.vline-8 { left: 40%; }
+.vline-9 { left: 45%; }
+.vline-10 { left: 50%; }
+.vline-11 { left: 55%; }
+.vline-12 { left: 60%; }
+.vline-13 { left: 65%; }
+.vline-14 { left: 70%; }
+.vline-15 { left: 75%; }
+.vline-16 { left: 80%; }
+.vline-17 { left: 85%; }
+.vline-18 { left: 90%; }
+.vline-19 { left: 95%; }
+.vline-20 { left: 100%; }
+
+/* 수평선 위치 클래스 */
+.hline-1 { top: 7%; }
+.hline-2 { top: 14%; }
+.hline-3 { top: 21%; }
+.hline-4 { top: 28%; }
+.hline-5 { top: 35%; }
+.hline-6 { top: 42%; }
+.hline-7 { top: 49%; }
+.hline-8 { top: 56%; }
+.hline-9 { top: 63%; }
+.hline-10 { top: 70%; }
+.hline-11 { top: 77%; }
+.hline-12 { top: 84%; }
+.hline-13 { top: 91%; }
+.hline-14 { top: 98%; }
+.hline-15 { top: 105%; }
+
+/* 애니메이션 지연 클래스 */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1s; }
+
+/* 네온 글로우 효과 위치 */
+.glow-effect-1 {
+  position: absolute;
+  top: 33%;
+  left: -80px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #06b6d4; /* cyan-500 */
+  opacity: 0.1;
+  filter: blur(100px);
+  animation: pulse 4s infinite alternate;
+}
+
+.glow-effect-2 {
+  position: absolute;
+  bottom: 25%;
+  right: 25%;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: #ec4899; /* pink-500 */
+  opacity: 0.1;
+  filter: blur(100px);
+  animation: pulse 4s infinite alternate;
+  animation-delay: 1s;
+}
+
+/* 글리치 효과 마진 클래스 */
+.glitch-margin-1 {
+  margin-left: -5px;
+  margin-top: 2px;
+}
+
+.glitch-margin-2 {
+  margin-left: 3px;
+  margin-top: -4px;
+}
+
+.glitch-margin-3 {
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
+.glitch-margin-4 {
+  margin-left: -3px;
+  margin-top: -2px;
+}
+
+.glitch-margin-5 {
+  margin-left: 2px;
+  margin-top: 5px;
+}
+
+/* BlogSection 스타일 */
+.blog-card-image-hover {
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+
+.blog-card-image-hover-active {
+  transform: scale(1.05);
+}
+
+.blog-card-border-glow {
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.blog-card-border-glow-active {
+  border-color: rgba(6, 182, 212, 0.5);
+}
+
+/* 배경 요소 위치 */
+.blog-bg-line-1 { left: 10%; top: 20%; height: 80px; opacity: 0.2; }
+.blog-bg-line-2 { left: 25%; top: 40%; height: 120px; opacity: 0.15; }
+.blog-bg-line-3 { left: 40%; top: 10%; height: 150px; opacity: 0.25; }
+.blog-bg-line-4 { left: 55%; top: 70%; height: 100px; opacity: 0.3; }
+.blog-bg-line-5 { left: 70%; top: 30%; height: 130px; opacity: 0.2; }
+.blog-bg-line-6 { left: 85%; top: 50%; height: 90px; opacity: 0.25; }
+.blog-bg-line-7 { left: 15%; top: 60%; height: 110px; opacity: 0.15; }
+.blog-bg-line-8 { left: 30%; top: 80%; height: 140px; opacity: 0.2; }
+.blog-bg-line-9 { left: 45%; top: 25%; height: 70px; opacity: 0.3; }
+.blog-bg-line-10 { left: 60%; top: 45%; height: 120px; opacity: 0.2; }
+.blog-bg-line-11 { left: 75%; top: 15%; height: 80px; opacity: 0.25; }
+.blog-bg-line-12 { left: 90%; top: 65%; height: 130px; opacity: 0.15; }
+.blog-bg-line-13 { left: 5%; top: 35%; height: 95px; opacity: 0.2; }
+.blog-bg-line-14 { left: 20%; top: 55%; height: 110px; opacity: 0.3; }
+.blog-bg-line-15 { left: 35%; top: 75%; height: 70px; opacity: 0.15; }
+.blog-bg-line-16 { left: 50%; top: 5%; height: 130px; opacity: 0.25; }
+.blog-bg-line-17 { left: 65%; top: 85%; height: 90px; opacity: 0.2; }
+.blog-bg-line-18 { left: 80%; top: 25%; height: 120px; opacity: 0.15; }
+.blog-bg-line-19 { left: 95%; top: 45%; height: 80px; opacity: 0.3; }
+.blog-bg-line-20 { left: 12%; top: 65%; height: 100px; opacity: 0.25; }
+
+/* Google 블로그 임베드 스타일 수정 */
+.google-blog-embed-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.google-blog-embed-container iframe {
+  width: 100%;
+  min-height: 800px;
+  border: none;
+  background-color: transparent;
+}
+
+/* Google 블로그 임베드 스타일 오버라이드 */
+.google-blog-override {
+  position: relative;
+}
+
+.google-blog-override::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 15, 0.1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 블로그/유튜브 컴포넌트 스타일 충돌 방지 */
+.autorise-blog-section,
+.autorise-youtube-section {
+  isolation: isolate;
+}
+
+.autorise-blog-container,
+.autorise-youtube-container {
+  isolation: isolate;
+  z-index: 1;
+}
+
+/* 외부 블로그 통합 시 애니메이션 충돌 방지 */
+.autorise-blog-section .blog-loader-inner-1 {
+  animation: blog-loader-spin 3s linear infinite;
+}
+
+.autorise-blog-section .blog-loader-inner-2 {
+  animation: blog-loader-spin 2s linear reverse infinite;
+}
+
+/* 명확한 스타일 격리를 위한 추가 클래스 */
+.autorise-isolated-content {
+  contain: content;
+}
+
+/* Google 블로그 섹션 추가 스타일 */
+.google-blog-section {
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+  contain: content;
+}
+
+.google-blog-iframe {
+  border: none;
+  background: transparent;
+  display: block;
+  width: 100%;
+}
+
+/* iframe 내부 콘텐츠와의 스타일 충돌 방지 */
+.google-blog-override {
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* iframe 로딩 상태 애니메이션 충돌 방지 */
+@keyframes google-blog-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes google-blog-pulse {
+  0%, 100% { transform: scale(0.95); opacity: 0.5; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* 각 배경 라인에 대한 위치 지정 */
+.google-blog-vline-1 { left: 10%; }
+.google-blog-vline-2 { left: 20%; }
+.google-blog-vline-3 { left: 30%; }
+.google-blog-vline-4 { left: 40%; }
+.google-blog-vline-5 { left: 50%; }
+.google-blog-vline-6 { left: 60%; }
+.google-blog-vline-7 { left: 70%; }
+.google-blog-vline-8 { left: 80%; }
+.google-blog-vline-9 { left: 90%; }
+.google-blog-vline-10 { left: 100%; }
+
+/* iframe 크기 및 높이 설정 */
+.google-blog-iframe-height-800 {
+  height: 800px;
+}
+
+.google-blog-iframe-height-700 {
+  height: 700px;
+}
+
+.google-blog-iframe-height-600 {
+  height: 600px;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .google-blog-embed-container iframe {
+    min-height: 600px !important;
+  }
+}
+
+/* iframe 내부와 외부의 스크롤 동작 분리 */
+.google-blog-embed-container {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
 }

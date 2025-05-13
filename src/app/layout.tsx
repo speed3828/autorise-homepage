@@ -1,9 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import PageTransition from "./components/PageTransition";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Autorise Insight - AI 기반 콘텐츠 자동화 솔루션",
@@ -67,10 +72,6 @@ export const metadata: Metadata = {
     creator: "@autorise",
     card: "summary_large_image",
     images: ["/images/autorise-og-image.png"]
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
   },
   icons: {
     icon: [{ url: "/favicon.ico", sizes: "any" }],
