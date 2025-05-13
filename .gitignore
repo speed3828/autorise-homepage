@@ -48,3 +48,4 @@ next-env.d.ts
 # /autorise-final/
 # /autorise-new/
 backup/
+.vercel

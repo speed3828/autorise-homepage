@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 
-// 더미 데이터를 함수 외부로 이동하여 항상 사용 가능하게 함
+// 더미 데이터
 const dummyPosts = [
   {
     id: '1',
@@ -29,49 +29,14 @@ const dummyPosts = [
   }
 ];
 
-// 블로그 API 요청 처리 함수
+// 블로그 API 요청 처리 함수 - 간소화
 export async function GET() {
   try {
-    // WordPress API 주소 (환경 변수로 관리하는 것이 좋습니다)
-    const BLOG_API_URL = process.env.BLOG_API_URL || 'https://autorise.kr/wp-json/wp/v2/posts';
-    
-    // 개발 환경 또는 API 키가 없을 경우 더미 데이터 반환
-    if (process.env.NODE_ENV === 'development' || !BLOG_API_URL.includes('autorise.kr')) {
-      console.log('개발 환경에서 더미 데이터 반환');
-      return NextResponse.json({ posts: dummyPosts }, { status: 200 });
-    }
-    
-    const response = await axios.get(BLOG_API_URL, {
-      params: {
-        per_page: 3,
-        _embed: 1  // 미디어와 작성자 정보 포함
-      }
-    });
-    
-    // 블로그 포스트 데이터 가공
-    const posts = response.data.map((post: any) => {
-      let imageUrl = undefined;
-      
-      // WordPress 미디어 처리
-      if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
-        imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
-      }
-      
-      return {
-        id: post.id.toString(),
-        title: post.title.rendered,
-        excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...',
-        publishedAt: new Date(post.date).toLocaleDateString('ko-KR'),
-        url: post.link,
-        imageUrl
-      };
-    });
-    
-    return NextResponse.json({ posts }, { status: 200 });
+    // 배포 환경을 고려하여 항상 더미 데이터 반환
+    return NextResponse.json({ posts: dummyPosts }, { status: 200 });
   } catch (error) {
-    console.error('블로그 데이터 가져오기 오류:', error);
-    
-    // 오류 발생 시 항상 더미 데이터 반환
+    console.error('블로그 데이터 처리 오류:', error);
+    // 오류 발생 시에도 더미 데이터 반환
     return NextResponse.json({ posts: dummyPosts }, { status: 200 });
   }
 } 

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 interface VideoItem {
   id: string;
@@ -10,8 +9,8 @@ interface VideoItem {
   publishedAt: string;
 }
 
-// 폴백 데이터
-const fallbackVideos: VideoItem[] = [
+// 비디오 데이터
+const youtubeVideos: VideoItem[] = [
   {
     id: 'demo1',
     title: 'ChatGPT로 블로그 글 5분만에 작성하기 (완벽 가이드)',
@@ -39,33 +38,16 @@ const fallbackVideos: VideoItem[] = [
 ];
 
 export default function YouTubeSection() {
-  const [videos, setVideos] = useState<VideoItem[]>([]);
+  // 정적 데이터 사용 - API 요청 제거
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchYouTubeVideos = async () => {
-      try {
-        // 내부 API 라우트 사용
-        const response = await axios.get('/api/youtube/');
-        if (response.data.videos && response.data.videos.length > 0) {
-          setVideos(response.data.videos);
-        } else {
-          // API가 빈 배열을 반환하면 폴백 데이터 사용
-          console.log('YouTube API가 빈 배열을 반환하여 폴백 데이터 사용');
-          setVideos(fallbackVideos);
-        }
-      } catch (err) {
-        console.error('YouTube 영상을 가져오는 데 실패했습니다:', err);
-        setError('YouTube 영상을 로드하는 데 문제가 발생했습니다');
-        // 오류 발생 시 폴백 데이터 사용
-        setVideos(fallbackVideos);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchYouTubeVideos();
+    // 로딩 효과를 위한 짧은 지연
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
@@ -75,9 +57,6 @@ export default function YouTubeSection() {
       </div>
     );
   }
-
-  // 항상 표시할 데이터 준비
-  const displayVideos = videos.length > 0 ? videos : fallbackVideos;
 
   return (
     <section className="py-20 bg-gray-900">
@@ -90,33 +69,29 @@ export default function YouTubeSection() {
           Autorise의 최신 YouTube 콘텐츠를 확인하세요. AI 기술과 콘텐츠 전략에 대한 유용한 정보를 제공합니다.
         </p>
         
-        {displayVideos.length === 0 ? (
-          <p className="text-center text-gray-400">표시할 영상이 없습니다</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {displayVideos.map((video) => (
-              <div key={video.id} className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105">
-                <a 
-                  href={`https://www.youtube.com/watch?v=${video.id}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.title} 
-                    className="w-full h-48 object-cover"
-                    loading="lazy"
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-2 line-clamp-2">{video.title}</h3>
-                    <p className="text-sm text-gray-400">{video.publishedAt}</p>
-                  </div>
-                </a>
-              </div>
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {youtubeVideos.map((video) => (
+            <div key={video.id} className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105">
+              <a 
+                href={`https://www.youtube.com/watch?v=${video.id}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <img 
+                  src={video.thumbnail} 
+                  alt={video.title} 
+                  className="w-full h-48 object-cover"
+                  loading="lazy"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2 line-clamp-2">{video.title}</h3>
+                  <p className="text-sm text-gray-400">{video.publishedAt}</p>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
         
         <div className="text-center mt-10">
           <a 

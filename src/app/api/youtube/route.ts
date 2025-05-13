@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 
-// 더미 데이터를 함수 외부로 이동
+// 더미 데이터
 const dummyVideos = [
   {
     id: 'demo1',
@@ -29,38 +29,14 @@ const dummyVideos = [
   }
 ];
 
-// YouTube API 요청 처리 함수
+// YouTube API 요청 처리 함수 - 간소화
 export async function GET() {
   try {
-    // YouTube API 키와 채널 ID는 환경 변수로 관리하는 것이 좋습니다
-    const API_KEY = process.env.YOUTUBE_API_KEY;
-    const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || 'UCQNSCmaE5cxFfJE28joWsbg';
-    
-    // 개발 환경이거나 API 키가 없으면 더미 데이터 반환
-    if (process.env.NODE_ENV === 'development' || !API_KEY) {
-      console.log('개발 환경에서 YouTube 더미 데이터 반환');
-      return NextResponse.json({ videos: dummyVideos }, { status: 200 });
-    }
-    
-    const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=4`
-    );
-    
-    // 영상 데이터 가공
-    const videos = response.data.items
-      .filter((item: any) => item.id.kind === 'youtube#video')
-      .map((item: any) => ({
-        id: item.id.videoId,
-        title: item.snippet.title,
-        thumbnail: item.snippet.thumbnails.high.url,
-        publishedAt: new Date(item.snippet.publishedAt).toLocaleDateString('ko-KR')
-      }));
-    
-    return NextResponse.json({ videos }, { status: 200 });
+    // 배포 환경을 고려하여 항상 더미 데이터 반환
+    return NextResponse.json({ videos: dummyVideos }, { status: 200 });
   } catch (error) {
-    console.error('YouTube 데이터 가져오기 오류:', error);
-    
-    // 오류 발생 시 더미 데이터 반환
+    console.error('YouTube 데이터 처리 오류:', error);
+    // 오류 발생 시에도 더미 데이터 반환
     return NextResponse.json({ videos: dummyVideos }, { status: 200 });
   }
 } 

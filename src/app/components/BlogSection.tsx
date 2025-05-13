@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 interface BlogPost {
   id: string;
@@ -13,7 +12,7 @@ interface BlogPost {
 }
 
 // 폴백 데이터
-const fallbackPosts: BlogPost[] = [
+const blogPosts: BlogPost[] = [
   {
     id: '1',
     title: '프롬프트로 블로그 글 빠르게 작성하기',
@@ -41,33 +40,16 @@ const fallbackPosts: BlogPost[] = [
 ];
 
 export default function BlogSection() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  // 정적 데이터 사용 - API 요청 제거
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchBlogPosts = async () => {
-      try {
-        // 내부 API 라우트 사용
-        const response = await axios.get('/api/blog/');
-        if (response.data.posts && response.data.posts.length > 0) {
-          setPosts(response.data.posts);
-        } else {
-          // API가 빈 배열을 반환하면 폴백 데이터 사용
-          console.log('API가 빈 배열을 반환하여 폴백 데이터 사용');
-          setPosts(fallbackPosts);
-        }
-      } catch (err) {
-        console.error('블로그 글을 가져오는 데 실패했습니다:', err);
-        setError('블로그 글을 로드하는 데 문제가 발생했습니다');
-        // 오류 발생 시 폴백 데이터 사용
-        setPosts(fallbackPosts);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlogPosts();
+    // 로딩 효과를 위한 짧은 지연
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
@@ -77,9 +59,6 @@ export default function BlogSection() {
       </div>
     );
   }
-
-  // 데이터가 없으면 폴백 데이터 사용
-  const displayPosts = posts.length > 0 ? posts : fallbackPosts;
 
   return (
     <section className="py-20 bg-gray-950">
@@ -93,7 +72,7 @@ export default function BlogSection() {
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {displayPosts.map((post) => (
+          {blogPosts.map((post) => (
             <div key={post.id} className="bg-gray-900 rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
               {post.imageUrl && (
                 <div className="h-48 overflow-hidden">
