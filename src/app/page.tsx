@@ -392,8 +392,8 @@ export default function Home() {
         {/* 블로그 섹션 - 정적 HTML로 대체 */}
         <BlogAndYouTubeSections />
         
-        {/* 유튜브 섹션 - 정적 HTML로 대체 */}
-        <YouTubeSectionStatic />
+        {/* 유튜브 섹션은 별도 페이지에서 확인 가능하므로 주석 처리 */}
+        {/* <YouTubeSectionStatic /> */}
         
         {/* 요금제 섹션 */}
         <PricingSection />
