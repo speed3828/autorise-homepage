@@ -11,12 +11,19 @@
     "predeploy": "npm run build && node scripts/archive.js",
     "deploy": "scp -r . $DEPLOY_USER@$DEPLOY_HOST:/var/www/myapp",
     "postdeploy": "ssh $DEPLOY_USER@$DEPLOY_HOST 'pm2 restart myapp'",
-    "start:cursor": "kill-port 3100 && next dev -p 3100",
+    "start:cursor": "next dev -p 3100",
     "doctor": "node scripts/doctor.js",
     "static": "npm run build && npx serve out -p 3100",
     "static-server": "node scripts/static-server.js",
     "deploy:vercel": "npx --package=vercel vercel --prod --confirm",
-    "vercel:deploy": "npx vercel --prod"
+    "vercel:deploy": "npx vercel --prod",
+    "pre-deploy-check": "node scripts/pre-deploy-check.js",
+    "analyze": "ANALYZE=true next build",
+    "export": "next build && next export",
+    "test:build": "npm run build && npm run pre-deploy-check",
+    "production": "next start -p 3100",
+    "cleanup": "rimraf .next out",
+    "lighthouse": "npx lighthouse https://localhost:3100 --view"
   },
   "dependencies": {
     "@emailjs/browser": "^4.1.0",
@@ -26,18 +33,23 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@types/axios": "^0.14.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "canvas": "^3.1.0",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "open-cli": "^8.0.0",
     "postcss": "^8",
+    "rimraf": "^5.0.5",
+    "sharp": "^0.34.1",
     "tailwindcss": "^3.3.0",
+    "to-ico": "^1.1.5",
     "typescript": "^5",
     "wait-on": "^8.0.3"
   }
