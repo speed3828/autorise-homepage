@@ -1,18 +1,21 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
-export default function Error({
-  error,
-  reset,
-}: {
+interface ErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
-}) {
+}
+
+export default function Error({ error, reset }: ErrorProps) {
   useEffect(() => {
     // 오류 로깅 구현 가능
     console.error(error);
   }, [error]);
+
+  const handleReset = useCallback(() => {
+    reset();
+  }, [reset]);
 
   return (
     <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center p-4">
@@ -26,7 +29,7 @@ export default function Error({
           예상치 못한 오류가 발생했습니다.
         </p>
         <button
-          onClick={() => reset()}
+          onClick={handleReset}
           className="px-8 py-3 bg-gradient-to-r from-pink-500 to-cyan-500 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
         >
           다시 시도하기

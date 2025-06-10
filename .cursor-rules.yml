@@ -1,0 +1,51 @@
+# Cursor AI Rules Configuration
+# AutoRise Homepage Project
+
+# 역할별 AI 워크플로
+workflow:
+  tier1: "Cursor (인턴)"
+  tier2: "GPT (품질 감독자)" 
+  tier3: "Claude (시니어 리팩터)"
+
+# 포트 고정 설정
+ports:
+  development: 3100
+  api: 4000
+  preview: 4200
+  
+# 개발 규칙
+rules:
+  - name: "Port Fixation"
+    description: "개발 서버는 반드시 포트 3100을 사용"
+    enforce: true
+    
+  - name: "AI Workflow"
+    description: "3단계 AI 검토 프로세스 준수"
+    tiers:
+      - "Cursor: 기본 코딩, 포트 유지, 이슈 보고"
+      - "GPT: 코드 리뷰, 품질 검사"
+      - "Claude: 구현, 리팩토링, 안정성"
+      
+  - name: "Code Quality"
+    description: "TypeScript, React 19, Next.js 15 표준 준수"
+    enforce: true
+    
+  - name: "Git Hooks"
+    description: "커밋 전 자동 검증 및 배포"
+    hooks:
+      - pre-commit
+      - pre-push
+      - post-deploy
+
+# 자동화 스크립트
+automation:
+  build: "scripts/ai-hooks/cursor_build.sh"
+  review: "scripts/ai-hooks/gpt_review.sh"
+  refactor: "scripts/ai-hooks/claude_refactor.sh"
+  
+# 품질 기준
+quality:
+  coverage: 80
+  linting: strict
+  typescript: strict
+  testing: required 
